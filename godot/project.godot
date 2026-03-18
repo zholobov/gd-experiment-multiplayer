@@ -13,6 +13,11 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 [autoload]
 
 WsClient="*res://scripts/network/ws_client.gd"
+DebugLog="*res://scripts/debug_log.gd"
+
+[gui]
+
+theme/default_font_size=24
 
 [rendering]
 
