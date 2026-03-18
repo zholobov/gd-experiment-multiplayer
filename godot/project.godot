@@ -8,7 +8,7 @@ config_version=5
 
 config/name="Multiplayer Game Shell"
 run/main_scene="res://scenes/shell/main_menu.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [autoload]
 
