@@ -7,7 +7,7 @@ signal peer_joined(your_role: String)
 signal peer_left
 signal message_received(data: Dictionary)
 
-const SERVER_URL := "ws://localhost:8080"
+const SERVER_URL := "wss://gd-experiment-relay.fly.dev"
 
 var _socket := WebSocketPeer.new()
 var _connected := false
