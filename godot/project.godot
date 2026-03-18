@@ -10,6 +10,13 @@ config/name="Multiplayer Game Shell"
 run/main_scene="res://scenes/shell/main_menu.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [autoload]
 
 WsClient="*res://scripts/network/ws_client.gd"
