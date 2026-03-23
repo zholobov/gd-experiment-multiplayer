@@ -210,51 +210,6 @@ const engine = new Engine(GODOT_CONFIG);
 		}, displayFailureNotice);
 	}
 
-	// BACKGROUND TAB FIX: Prevent browser from throttling requestAnimationFrame.
-	// Browsers throttle rAF to ~1fps or pause it entirely for background tabs,
-	// which stops Godot's _process() loop and breaks WebSocket polling.
-	// We patch rAF so that when the tab is hidden, pending callbacks are also
-	// driven by a setInterval fallback (which browsers throttle less aggressively).
-	(function patchRAFForBackgroundTabs() {
-		const origRAF = window.requestAnimationFrame;
-		let pendingCallbacks = [];
-		let fallbackTimer = null;
-
-		window.requestAnimationFrame = function(cb) {
-			const id = origRAF(cb);
-			if (document.hidden) {
-				pendingCallbacks.push({ id, cb });
-			}
-			return id;
-		};
-
-		function startFallback() {
-			if (fallbackTimer !== null) return;
-			fallbackTimer = setInterval(() => {
-				const cbs = pendingCallbacks.splice(0);
-				const now = performance.now();
-				for (const entry of cbs) {
-					try { entry.cb(now); } catch(e) { console.error(e); }
-				}
-			}, 100);
-		}
-
-		function stopFallback() {
-			if (fallbackTimer !== null) {
-				clearInterval(fallbackTimer);
-				fallbackTimer = null;
-			}
-			pendingCallbacks = [];
-		}
-
-		document.addEventListener('visibilitychange', () => {
-			if (document.hidden) {
-				startFallback();
-			} else {
-				stopFallback();
-			}
-		});
-	}());
 }());
 		</script>
 	</body>
